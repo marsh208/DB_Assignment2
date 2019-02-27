@@ -1,6 +1,7 @@
 import sqlite3
 
 def main():
+
     user_option = ""
 
     conn = sqlite3.connect('StudentDataBase.sqlite') #file path
@@ -20,7 +21,7 @@ def main():
 
     while True:
 
-        user_option = int(input("Enter 1 to display all students with their attributes\nEnter 2 to create a new students\nEnter 3 to update existing students\nEnter 4 to remove students\nEnter 5 to search for students\nEnter 0 to quit"))
+        user_option = int(input("Enter 1 to display all students with their attributes\nEnter 2 to create a new students\nEnter 3 to update existing students\nEnter 4 to remove students\nEnter 5 to search for students\nEnter 0 to quit\n"))
 
         if user_option == 1: #display all students
            displayAll(c)
@@ -95,15 +96,16 @@ def deleteStudent(cursor):
 
 def searchStudents(cursor):
     option = int(input("Enter 1 to search by major, 2 to search by GPA, and 3 to search by advisor: "))
+
     if option == 1:
         major = raw_input("Enter the major: ")
-        cursor.execute("SELECT * FROM Students WHERE Major = ?", major)
+        cursor.execute("SELECT * FROM Students WHERE Major = ?", (major,))
     elif option == 2:
         gpa = float(input("Enter the GPA: "))
-        cursor.execute("SELECT * FROM Students WHERE GPA = ?", gpa)
+        cursor.execute("SELECT * FROM Students WHERE GPA = ?", (gpa,))
     elif option == 3:
         advisor = raw_input("Enter the Advisor: ")
-        cursor.execute("SELECT * FROM Students WHERE FacultyAdvisor = ?", advisor)
+        cursor.execute("SELECT * FROM Students WHERE FacultyAdvisor = ?", (advisor,))
     else:
         print("Invalid input")
         return
